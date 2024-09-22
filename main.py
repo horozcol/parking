@@ -16,7 +16,7 @@ vehicles = [2, 5, 7]
 
 
 # URL de la cámara IP
-CAMERA_URL = "./placa5.png"  # Reemplaza con la URL de tu cámara
+CAMERA_URL = "192.168.x.x"  # Reemplaza con la URL de tu cámara
 
 class CameraApp:
     def __init__(self, master):
@@ -42,22 +42,10 @@ class CameraApp:
         self.video_label.after(10, self.update_video)
 
 
-    # ask for a plate
-    """def auto_exist(self, placa):
-        my_con = conn_op()
-        my_cursor = my_con.cursor()
-        sql = 'INSERT INTO autos(placa, datein, dateout,path) VALUES(%s,%s,%s,%s)'
-        vals = (placa)
-        my_cursor.execute(sql, vals)
-        my_con.commit()
-        my_con.close()
-        """
 
-
-
-    """def __del__(self):
+    def __del__(self):
         if self.vid.isOpened():
-            self.vid.release()"""
+            self.vid.release()
 
 if __name__ == "__main__":
     root = tk.Tk()
