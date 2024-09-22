@@ -23,6 +23,7 @@ maxval = 200
 min_score = 0.39
 max_not_seen = 1
 def ocr_plate(frame, thres=80, maxval=150):
+    print(f"thres {thres}, maxval {maxval}")
 
     license_plates = license_plate_detector(frame)[0]
     for license_plate in license_plates.boxes.data.tolist():
@@ -35,26 +36,27 @@ def ocr_plate(frame, thres=80, maxval=150):
         print(f"Plate: {license_plate_text}, score:{license_plate_text_score}")
         if (license_plate_text is not None) and (license_plate_text_score is not None) and (license_plate_text_score > min_score):
             is_new_auto(license_plate_text)
-        else:
-            print(f"No se detectaron placas. Intento de nuevo con otros parametros {thres+delta}, {maxval-delta}")
             is_auto_out, idauto = is_auto_dout(license_plate_text)
-            if (len(is_auto_out))>1:
-                return 0,0
-
-            is_auto_out = int(is_auto_out)
-
-
             if is_auto_out == 0:
                 print("is_auto_out=0")
                 inc_not_seen(idauto)
-                print(is_auto_out)
+        else:
+            license_plate_text_score=0
+            print(f"No se detectaron placas. Intento de nuevo con otros parametros {thres+delta}, {maxval-delta}")
+
+
+
+
             if (thres+delta) < 10:
                 thres = 150
             if (maxval+delta) >250:
                 maxval=0
             else:
-                ocr_plate(frame, thres - delta, maxval + delta)
-        return 0, 0
+                if license_plate_text_score < min_score:
+                    thres = thres - delta
+                    maxval = maxval + delta
+        ocr_plate(frame, thres , maxval )
+        #return 0, 0
 
 def insert_new_auto(plate):
 

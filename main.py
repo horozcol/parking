@@ -10,13 +10,12 @@ os.environ["XDG_SESSION_TYPE"] = "xcb"
 #dictionary
 results = {}
 # load models
-coco_model = YOLO('yolov8n.pt')
 license_plate_detector = YOLO('license_plate_detector.pt')
 vehicles = [2, 5, 7]
 
 
 # URL de la cámara IP
-CAMERA_URL = "192.168.x.x"   # Reemplaza con la URL de tu cámara
+CAMERA_URL = "placa10.png"   # Reemplaza con la URL de tu cámara
 
 class CameraApp:
     def __init__(self, master):
@@ -37,11 +36,8 @@ class CameraApp:
     def update_video(self):
         cap = cv2.VideoCapture(CAMERA_URL)
         ret, frame = cap.read()
-        plate,accurate = ocr_plate(frame)
-
+        ocr_plate(frame)
         self.video_label.after(10, self.update_video)
-
-
 
     def __del__(self):
         if self.vid.isOpened():
