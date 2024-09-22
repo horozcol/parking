@@ -16,7 +16,7 @@ vehicles = [2, 5, 7]
 
 
 # URL de la cámara IP
-CAMERA_URL = "192.168.x.x"  # Reemplaza con la URL de tu cámara
+CAMERA_URL = "192.168.x.x"   # Reemplaza con la URL de tu cámara
 
 class CameraApp:
     def __init__(self, master):
