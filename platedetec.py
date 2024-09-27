@@ -63,7 +63,7 @@ def ocr_plate(frame, thres=90, maxval=220):
             print(f"is_auto_out {is_auto_out}")
             if is_auto_out == 0:
                 print("is_auto_out=0")
-                inc_not_seen(idauto)
+                inc_seen(license_plate_text,idauto, license_plate_text_score)
             else:
                 print(f"se inserta el auto con placas {license_plate_text}")
                 ins_new_auto(license_plate_text, score)
@@ -84,11 +84,10 @@ def ocr_plate(frame, thres=90, maxval=220):
 
             else:
                 if license_plate_text_score < min_score:
-                    pass
                     #thres = thres + delta
                     maxval = maxval + delta
         ocr_plate(frame, thres , maxval )
-        return license_plate
+        return license_plate, score
     return 0
 
 

@@ -60,18 +60,18 @@ def ins_new_auto(plate,score):
 def upd_auto():
     pass
 
-def inc_seen(plate, idauto):
+def inc_seen(plate, idauto, score):
     print(f"incrementar el contador seen de la placa {plate} e idauto {idauto}")
     my_con = conn_op()
     my_cursor = my_con.cursor()
-    sql = "update autos set seen = seen + 1, lastseen = %s  where  placa = %s and id = %s"
+    sql = "update autos set seen = seen + 1, lastseen = %s, score = %s  where  placa = %s and id = %s"
     my_now = time.strftime("%Y-%m-%d %H:%M:%S")
-    pl = (my_now, plate ,idauto,)
+    pl = (my_now,score, plate ,idauto,)
     my_cursor.execute(sql, pl)
     my_con.commit()
     clr_notseen(plate, idauto)
     my_con.close()
-    clr_notseen(idauto)
+    clr_notseen(plate, idauto)
 
 def inc_not_seen_all():
 
@@ -163,7 +163,10 @@ def is_auto_dout(plate):
     # pl = (plate,)
     my_cursor.execute(sql)
     result = my_cursor.fetchall()
-    print(f"resultado de is_auto_dout {result}")
+    #print(f"resultado de is_auto_dout {result}")
+    if(len(result))==0:
+        ins_new_auto(plate,0.5)
+        return 0,1
     dout = result[0][3]
     print(f"valor dout: {dout} para la placa {plate}")
     idauto = result[0][0]

@@ -5,7 +5,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 from platedetec import ocr_plate, clear_gpu_memory
 from crud import inc_not_seen_all, exist_auto, liquidar_auto, up_fecha_liquidar
-
+from util import crea_image
 # Reemplaza con la URL de tu cámara IP
 camera_url = "http://192.168.1.172"
 
@@ -53,6 +53,7 @@ class CameraApp:
             type(f"tipo objeto plate {plate}")
             #int(plate)
             print(f"plate retornada por ocr_plate: {plate}")
+            crea_image(frame, "in")
             if plate == 0:
                 inc_not_seen_all()
         # Llamar a la función de actualización cada 10 ms
