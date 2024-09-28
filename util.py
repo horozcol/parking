@@ -137,6 +137,7 @@ def read_license_plate(license_plate_crop,thres,max):
     #print(type(license_plate_crop))
     #data = im.fromarray(license_plate_crop)
     #data.save(f'./pics/{thres}-{max}-plate-crop-pic.png')
+    crea_image(license_plate_crop, f'{thres}-{max}-')
     if detections == []:
         return None, None
 
