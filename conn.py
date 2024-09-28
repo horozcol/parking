@@ -1,3 +1,4 @@
+#conexion a la bd
 import mysql.connector
 cnx = None
 def conn_op():
